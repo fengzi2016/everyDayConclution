@@ -37,19 +37,37 @@
   //   document.body.appendChild(component);
   // })
 
-import _ from 'lodash'
+
   //懒加载
+  // function component() {
+  //   var element = document.createElement('div');
+  //   var button = document.createElement('button');
+  //   var br = document.createElement('br');
+  //   button.innerHTML = 'Click me and look at the console'
+  //   element.appendChild(br);
+  //   element.appendChild(button);
+  //   button.onclick = e => import(/*webpackChunkName:print*/'./print').then(module=>{
+  //     var print = module.default;
+  //     print();
+  //   });
+  //   return element;
+  // } 
+  // document.body.appendChild(component());
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+       navigator.serviceWorker.register('/service-worker.js').then(registration => {
+         console.log('SW registered: ', registration);
+     }).catch(registrationError => {
+        console.log('SW registration failed: ', registrationError);
+      });
+    });
+  }
   function component() {
     var element = document.createElement('div');
-    var button = document.createElement('button');
-    var br = document.createElement('br');
-    button.innerHTML = 'Click me and look at the console'
-    element.appendChild(br);
-    element.appendChild(button);
-    // button.onclick = e => import(/*webpackChunkName:print*/'./print').then(module=>{
-    //   var print = module.default;
-    //   print();
-    // });
+    element.innerHTML = join(['Hello','webpack']);
+
+
+    this.alert('Hmmm,this.probably')
     return element;
-  } 
-  document.body.appendChild(component());
+  }
+  document.body.appendChild(component())

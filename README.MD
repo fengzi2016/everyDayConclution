@@ -37,6 +37,14 @@ CommonsChunkPlugin 插件还可以通过使用显式的 vendor chunks 功能，�
 19. new webpack.optimize.CommonsChunkPlugin能够在每次修改后的构建结果中，将 webpack 的样板(boilerplate)和 manifest 提取出来
 20. main bundle 会随着自身的新增内容的修改，而发生变化。vendor bundle 会随着自身的 module.id 的修改，而发生变化。manifest bundle 会因为当前包含一个新模块的引用，而发生变化。new webpack.HashedModuleIdsPlugin(),将使用模块的路径，而不是数字标识符 来使vender不会每次都改变。现在，不管再添加任何新的本地依赖，对于每次构建，vendor hash 都应该保持一致：
 
-
-
-# 创建library
+21.  //通过插件的形式来引用包
+     new webpack.ProvidePlugin({
+       _:'lodash'
+     }),
+    // 引入某个模块单个导出值
+    new webpack.ProvidePlugin({
+       join:['loadsh','join']
+     }),
+22. 解决CommonJS中函数this指向 module.exports问题，用imports-loader
+23. 使用 exports-loader，将一个全局变量作为一个普通的模块来导出。
+24. 离线环境：渐进式网络应用程序PWA ，http-server,添加Workbox插件，调整webpack.common文件
